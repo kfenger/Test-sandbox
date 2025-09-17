@@ -1,4 +1,4 @@
-name: malcolm-minimal-topology
+name: blue-team-with-malcolm
 
 hosts:
   - name: malcolm-host
