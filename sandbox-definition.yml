@@ -1,8 +1,9 @@
 sandbox:
   name: malcolm-sandbox
-  description: "Malcolm sandbox - lab-net mirrored to malcolm-host"
+  title: blue-team-with-malcolm
+  description: Sandbox for blue team training with Malcolm SIEM
   topology: topology.yml
-
+  
   variables:
     - name: ssh_public_key
       source: variables.yml
