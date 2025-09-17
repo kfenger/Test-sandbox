@@ -6,9 +6,7 @@ hosts:
       image: debian-12-x86_64
       mgmt_user: admin
       mgmt_protocol: ssh
-    flavor: large
-    volumes:
-      - size: 50
+    flavor: small
 
   - name: attacker-vm
     base_box:
