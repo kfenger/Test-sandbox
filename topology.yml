@@ -1,0 +1,16 @@
+name: test-one-vm
+hosts:
+  - name: test-vm
+    base_box:
+      image: debian-12-x86_64
+      mgmt_user: admin
+      mgmt_protocol: ssh
+    flavor: small
+networks:
+  - name: mgmt-net
+    cidr: 10.50.10.0/24
+    accessible_by_user: true
+net_mappings:
+  - host: test-vm
+    network: mgmt-net
+    ip: 10.50.10.10
