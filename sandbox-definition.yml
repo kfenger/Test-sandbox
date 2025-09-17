@@ -1,0 +1,21 @@
+sandbox:
+  name: malcolm-sandbox
+  topology: topology.yml
+  description: "Sandbox for Malcolm monitoring + attacker/victim"
+  lifecycle:
+    on_create:
+      - action: provision    # plattformens interne kommando som leser topology.yml
+    on_start:
+      - action: run_on_host
+        host: malcolm-host
+        command: "/opt/malcolm/start-malcolm.sh"
+        wait_for: 120
+      - action: run_on_host
+        host: attacker-vm
+        command: "/root/run_attack.sh"
+        wait_for: 10
+  pools:
+    - name: default
+      access: user
+  credentials:
+    - keypair: mykey

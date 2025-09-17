@@ -1,0 +1,18 @@
+#cloud-config
+users:
+  - name: attacker
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    ssh-authorized-keys:
+      - "<SET_YOUR_PUBLIC_KEY_HERE>"
+
+packages:
+  - nmap
+  - hping3
+  - tcpreplay
+  - hydra
+  - wget
+  - tcpdump
+runcmd:
+  - [ bash, -c, "mkdir -p /root/attacks && chmod 700 /root/attacks" ]
+  - [ bash, -c, "cat > /root/run_attack.sh <<'EOF'\n#!/bin/bash\n# enkel sekvens: portscan -> tcpreplay (valgfritt) -> enkel TCP connect\nsleep 20\nnmap -sS -Pn 192.168.70.30 -oN /root/attacks/nmap_scan.txt\n# (valgfritt) replay en pcap hvis du la en pcap i /root/attacks\nif [ -f /root/attacks/malicious.pcap ]; then\n  tcpreplay --intf1=eth0 /root/attacks/malicious.pcap\nfi\n# enkel TCP connect for å generere trafikk\nbash -c \"echo 'GET / HTTP/1.1\\r\\nHost: 192.168.70.30\\r\\n\\r\\n' | nc 192.168.70.30 80\" || true\nEOF" ]
+  - [ bash, -c, "chmod +x /root/run_attack.sh" ]

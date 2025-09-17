@@ -1,0 +1,16 @@
+#cloud-config
+users:
+  - name: trainee
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    ssh-authorized-keys:
+      - "<SET_YOUR_PUBLIC_KEY_HERE>"
+
+packages:
+  - apache2
+  - python3
+  - python3-pip
+
+runcmd:
+  - [ bash, -c, "echo 'Vulnerable demo page' > /var/www/html/index.html" ]
+  - [ bash, -c, "systemctl enable --now apache2" ]
+  - [ bash, -c, "useradd -m -s /bin/bash weakuser || true; echo 'weakuser:password' | chpasswd || true" ]
