@@ -3,7 +3,7 @@ name: blue-team-with-malcolm
 hosts:
   - name: malcolm-host
     base_box:
-      image: debian-12-x86_64
+      image: ubuntu-noble-2024
       mgmt_user: admin
       mgmt_protocol: ssh
     flavor: small
